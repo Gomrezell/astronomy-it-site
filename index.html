@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>ИТ в астрономии | Цифровая революция в науке</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #03050A;
+            font-family: 'Inter', sans-serif;
+            color: #E9EDF2;
+            line-height: 1.5;
+            scroll-behavior: smooth;
+        }
+
+        /* космический акцент */
+        .bg-stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: radial-gradient(2px 2px at 20px 40px, rgba(255,255,255,0.12) 0%, rgba(0,0,0,0) 100%),
+                              radial-gradient(1px 1px at 80px 240px, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0) 100%),
+                              radial-gradient(3px 2px at 400px 600px, rgba(255,255,255,0.08) 0%, rgba(0,0,0,0) 100%);
+            background-size: 200px 200px, 300px 300px, 500px 500px;
+            background-repeat: repeat;
+            pointer-events: none;
+            z-index: -2;
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 5rem 1.5rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* типографика */
+        h1 {
+            font-size: clamp(2.6rem, 8vw, 4.4rem);
+            font-weight: 800;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #FFFFFF 0%, #94A3F8 70%, #38BDF8 100%);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        .lead {
+            font-size: 1.25rem;
+            color: #A0ABBF;
+            max-width: 780px;
+            margin-bottom: 2.5rem;
+            border-left: 3px solid #2D9CDB;
+            padding-left: 1.25rem;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: -0.01em;
+            margin: 2.5rem 0 1.25rem 0;
+            display: inline-block;
+            background: linear-gradient(120deg, #F0F4FF, #B9C8FF);
+            background-clip: text;
+            -webkit-background-clip: text;
+            color: transparent;
+            border-bottom: 2px solid rgba(45, 156, 219, 0.4);
+            padding-bottom: 0.3rem;
+        }
+
+        h3 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            margin-bottom: 0.75rem;
+            color: #CBD5FF;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 1.8rem;
+            margin: 1.8rem 0;
+        }
+
+        .card {
+            background: rgba(12, 18, 34, 0.7);
+            backdrop-filter: blur(2px);
+            border: 1px solid rgba(45, 156, 219, 0.25);
+            border-radius: 1.8rem;
+            padding: 1.6rem 1.8rem;
+            transition: transform 0.2s ease, border-color 0.2s;
+        }
+
+        .card:hover {
+            border-color: rgba(45, 156, 219, 0.65);
+            transform: translateY(-4px);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .stat-badge {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+            color: #2D9CDB;
+            background: rgba(45, 156, 219, 0.12);
+            display: inline-block;
+            padding: 0.2rem 0.7rem;
+            border-radius: 40px;
+            margin-bottom: 1rem;
+        }
+
+        .big-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-right: 0.4rem;
+            line-height: 1;
+        }
+
+        .inline-highlight {
+            color: #6DC4F0;
+            font-weight: 600;
+        }
+
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        li {
+            margin-bottom: 0.6rem;
+            padding-left: 1.2rem;
+            position: relative;
+        }
+
+        li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: #2D9CDB;
+            font-weight: 600;
+        }
+
+        .essence-block {
+            background: linear-gradient(135deg, #0A0F1E 0%, #0B1120 100%);
+            border-radius: 2rem;
+            padding: 2rem 2rem;
+            margin: 2.5rem 0;
+            border: 1px solid #2D4A6E;
+            box-shadow: 0 20px 30px -15px rgba(0,0,0,0.5);
+        }
+
+        .essence-text {
+            font-size: 1.35rem;
+            font-weight: 500;
+            text-align: center;
+            color: #E2E8FF;
+            max-width: 880px;
+            margin: 0 auto;
+            font-style: normal;
+            border-left: none;
+        }
+
+        .flex-stats {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            gap: 1.2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-item {
+            background: rgba(0, 0, 0, 0.45);
+            border-radius: 2rem;
+            padding: 1rem 1.3rem;
+            text-align: center;
+            flex: 1;
+            min-width: 120px;
+            border: 1px solid rgba(45, 156, 219, 0.3);
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 800;
+            color: #90E0FF;
+        }
+
+        hr {
+            margin: 2rem 0;
+            border: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #2D9CDB, #7F9CF5, transparent);
+        }
+
+        footer {
+            margin-top: 4rem;
+            text-align: center;
+            font-size: 0.85rem;
+            color: #5F6C8A;
+            border-top: 1px solid #1E293B;
+            padding-top: 2rem;
+        }
+
+        a {
+            color: #7BA9F0;
+            text-decoration: none;
+        }
+
+        @media (max-width: 700px) {
+            .container {
+                padding: 1.2rem 1.2rem 3rem;
+            }
+            .card {
+                padding: 1.2rem;
+            }
+            .essence-text {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="bg-stars"></div>
+<div class="container">
+    <h1>ИТ в астрономии:<br>как данные меняют науку</h1>
+    <div class="lead">
+        От фотопластинок к петабайтам, нейросетям и облакам. Астрономия стала data-driven — сегодня открытие зависит не от размера линзы, а от качества алгоритма.
+    </div>
+
+    <!-- Блок 1: От аналога к цифре -->
+    <h2>⚡ От аналога к цифре</h2>
+    <div class="grid-2">
+        <div class="card">
+            <div class="stat-badge">КЛЮЧЕВОЙ ПРОРЫВ</div>
+            <h3>ПЗС-матрицы вместо пластинок</h3>
+            <p>Квантовая эффективность поднялась с <strong>&lt;5%</strong> до <strong class="inline-highlight">80–90%</strong>. Вместо ручного сканирования — точные цифровые массивы пикселей.</p>
+            <div style="margin-top: 1rem;">
+                <span class="big-number">3,2</span> <span style="color:#9CA9C9">гигапикселя</span>
+                <p style="font-size:0.9rem; margin-top:0.4rem;">Камера LSST: одно изображение покрывает площадь в <strong>40 раз</strong> больше лунного диска.</p>
+            </div>
+        </div>
+        <div class="card">
+            <div class="stat-badge">РЕВОЛЮЦИЯ ДАННЫХ</div>
+            <h3>От терабайт к эксабайтам</h3>
+            <p>Современные архивы исчисляются <strong>петабайтами</strong>, а к концу десятилетия достигнут эксабайтного масштаба. Gaia (ESA) уже собрала >1 петабайта данных о 1,8 млрд объектов.</p>
+            <div style="margin-top: 0.8rem; font-size:0.9rem;">
+                <span style="background:#1E293B; padding:0.2rem 0.5rem; border-radius: 12px;">скорость поступления → требует ИИ</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Блок 2: Роботизация и облака -->
+    <h2>🤖 Роботы, сети и облачные платформы</h2>
+    <div class="grid-2">
+        <div class="card">
+            <div class="stat-badge">СЕТИ ТЕЛЕСКОПОВ</div>
+            <h3>«Мастер» и круглосуточный мониторинг</h3>
+            <p>Российская сеть МАСТЕР объединяет автоматические обсерватории по всему миру. Когда в одной точке рассвет, наблюдения продолжает телескоп в ночной зоне.</p>
+            <p style="margin-top: 0.8rem;">✅ Автономное планирование<br>✅ Метеостанции в реальном времени</p>
+        </div>
+        <div class="card">
+            <div class="stat-badge">ОБЛАКА / VO</div>
+            <h3>Код перемещается к данным</h3>
+            <p>Архивы Хаббла и Уэбба в AWS Cloud. Пользователь запускает контейнер прямо рядом с петабайтами — не нужно скачивать терабайты по сети.</p>
+            <p><span class="inline-highlight">Виртуальная обсерватория (IVOA)</span> — единые протоколы (SSAP, SIA), десятки архивов мира как единое пространство.</p>
+        </div>
+    </div>
+
+    <!-- цифровой факт -->
+    <div class="flex-stats">
+        <div class="stat-item"><span class="stat-number">99%</span><br>точность нейросетей при поиске транзиентов</div>
+        <div class="stat-item"><span class="stat-number">10 млн</span><br>предупреждений/ночь (обс. Рубин)</div>
+        <div class="stat-item"><span class="stat-number">189</span><br>ПЗС-сенсоров в камере LSST</div>
+        <div class="stat-item"><span class="stat-number">×1000</span><br>быстрее людей классификация галактик (CNN)</div>
+    </div>
+
+    <!-- Блок 3: Искусственный интеллект  -->
+    <h2>🧠 Искусственный интеллект — главный инструмент</h2>
+    <div class="grid-2">
+        <div class="card">
+            <div class="stat-badge">КЛАССИФИКАЦИЯ</div>
+            <h3>Галактики и морфология</h3>
+            <p>Свёрточные нейросети, обученные на Galaxy Zoo, классифицируют миллиарды галактик. Выделяют перемычки, кольца и даже признаки слияний без участия человека.</p>
+        </div>
+        <div class="card">
+            <div class="stat-badge">ТРАНЗИЕНТЫ</div>
+            <h3>Вспышки, сверхновые, FRB</h3>
+            <p>Нейросети отличают реальные события от артефактов (космические лучи, спутники) с точностью >99%. Автоматически определяют тип: SN Ia, килоновая, гамма-всплеск.</p>
+        </div>
+        <div class="card">
+            <div class="stat-badge">ЭКЗОПЛАНЕТЫ</div>
+            <h3>AstroNet / ExoNet</h3>
+            <p>Транзитный метод: ИИ выделяет сигналы планет среди шумов звезды, включая многопланетные системы и вытянутые орбиты.</p>
+        </div>
+        <div class="card">
+            <div class="stat-badge">ИНТЕРФЕРОМЕТРИЯ</div>
+            <h3>Чёрная дыра M87</h3>
+            <p>Event Horizon Telescope + машинное обучение (компрессивный сенсинг) — первое в истории изображение тени сверхмассивной чёрной дыры.</p>
+        </div>
+    </div>
+
+    <!-- Блок: современная работа + режим обслуживания -->
+    <h2>🔭 Как работают астрономы сегодня</h2>
+    <div class="grid-2">
+        <div class="card">
+            <div class="stat-badge">SERVICE MODE (ESO)</div>
+            <h3>Астроном не едет к телескопу</h3>
+            <p>Отправляется детальное описание задачи. Программное обеспечение обсерватории автоматически встраивает наблюдения в расписание, выбирая лучшие атмосферные условия. Данные приходят через веб-портал.</p>
+            <p>✅ Калибровка едина<br>✅ Экономия времени и средств</p>
+        </div>
+        <div class="card">
+            <div class="stat-badge">ПРОГРАММИРОВАНИЕ</div>
+            <h3>Python — стандарт индустрии</h3>
+            <p><strong>Astropy</strong> (FITS, координаты), <strong>TensorFlow/PyTorch</strong> (ML), <strong>Jupyter</strong> — интерактивная наука. Код и данные публикуются для воспроизводимости.</p>
+            <p style="margin-top:0.7rem">➕ Принципы FAIR: данные <strong>находимы, доступны, совместимы, повторно используемы</strong>.</p>
+        </div>
+    </div>
+
+    <!-- Цитата + автономные системы -->
+    <div class="essence-block">
+        <div class="essence-text">
+            «Современный телескоп невозможно рассматривать отдельно от его программного обеспечения.<br>
+            Системы управления — это сложные комплексы с базами данных, ML-планированием и удалённым доступом».
+        </div>
+    </div>
+
+    <h2>⚙️ Автономные системы и интеллект</h2>
+    <div class="grid-2">
+        <div class="card">
+            <div class="stat-badge">REINFORCEMENT LEARNING</div>
+            <h3>Динамическое планирование</h3>
+            <p>ИИ-агент сам решает, на какой объект наводиться, учитывая погоду, высоту, приоритеты программ и вероятность редких событий (вспышки сверхновых).</p>
+        </div>
+        <div class="card">
+            <div class="stat-badge">АЛЕРТЫ LIGO / VIRGO</div>
+            <h3>Реакция за секунды</h3>
+            <p>Гравитационно-волновые детекторы отправляют координаты слияний нейтронных звёзд. Роботизированные телескопы автоматически прерывают текущие наблюдения и начинают доследование килоновых, которые гаснут за часы.</p>
+        </div>
+        <div class="card">
+            <div class="stat-badge">EDGE COMPUTING</div>
+            <h3>Бортовая обработка</h3>
+            <p>Спутники с нейропроцессорами (NASA OCTOPUS, Ф-sat) сами анализируют снимки и передают только научно значимые кадры, экономя канал связи.</p>
+        </div>
+    </div>
+
+    <!-- высокопроизводительные вычисления + симуляции -->
+    <h2>🌌 Вычисления как мост к теории</h2>
+    <div class="grid-2">
+        <div class="card">
+            <div class="stat-badge">СУПЕРКОМПЬЮТЕРЫ</div>
+            <h3>Симуляции Вселенной</h3>
+            <p>IllustrisTNG, EAGLE — моделируют эволюцию десятков тысяч галактик, миллионы CPU-часов. Разрешение позволяет сравнивать синтетические изображения с реальными наблюдениями.</p>
+        </div>
+        <div class="card">
+            <div class="stat-badge">КОСМОЛОГИЯ</div>
+            <h3>Тёмная материя и линзирование</h3>
+            <p>Без точных гидродинамических симуляций невозможно выделить сигнал тёмной энергии из данных обзоров DESI, Euclid.</p>
+        </div>
+    </div>
+
+    <!-- Главные вызовы и будущее -->
+    <h2>⚠️ Вызовы &amp; горизонты</h2>
+    <div class="grid-2">
+        <div class="card">
+            <div class="stat-badge">ПРОКЛЯТИЕ РАЗМЕРНОСТИ</div>
+            <h3>Данные растут быстрее сетей</h3>
+            <p>Телескоп SKA будет выдавать несколько петабайт в сутки. Требуются FPGA/ASIC для обработки прямо на антеннах. Квантовые вычисления — потенциальный прорыв.</p>
+        </div>
+        <div class="card">
+            <div class="stat-badge">МЕГАСОЗВЕЗДИЯ</div>
+            <h3>Starlink и артефакты</h3>
+            <p>Тысячи спутников оставляют следы на снимках. Нейросети уже учатся автоматически удалять эти полосы и планировать наблюдения в «окна» без пролётов.</p>
+        </div>
+        <div class="card">
+            <div class="stat-badge">КАДРЫ БУДУЩЕГО</div>
+            <h3>Астроном-программист</h3>
+            <p>Современный астрофизик обязан владеть ML, big data и облачными технологиями. Междисциплинарность — ключ к открытиям.</p>
+        </div>
+        <div class="card">
+            <div class="stat-badge">DIGITAL TWINS</div>
+            <h3>Цифровые двойники обсерваторий</h3>
+            <p>Точные симуляции телескопов для тестирования алгоритмов в виртуальной среде и оптимизации реальных наблюдений.</p>
+        </div>
+    </div>
+
+    <!-- краткая суть одним блоком -->
+    <div class="essence-block" style="margin-top: 1rem;">
+        <div class="essence-text">
+            📡 <strong>Суть одной фразой</strong><br>
+            Астрономия больше не про «смотреть в телескоп». Это наука о петабайтах, нейросетях, облачных платформах и сложнейших алгоритмах.<br>
+            Будущее: поиск жизни на экзопланетах, тёмная материя, гравитационные волны — всё это напрямую зависит от ИТ.
+        </div>
+    </div>
+
+    <!-- заключение + ключевые факты -->
+    <hr>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 1rem; margin-top: 1rem;">
+        <div style="flex:1; min-width: 200px;">
+            <h3 style="color:#B9D0FF;">✔ Data-driven science</h3>
+            <p>Успех исследования зависит не только от диаметра зеркала, но и от архитектуры хранения и качества алгоритмов.</p>
+        </div>
+        <div style="flex:1; min-width: 200px;">
+            <h3 style="color:#B9D0FF;">✔ Открытые стандарты</h3>
+            <p>IVOA, VOTable, FITS, облачные архивы — без них невозможна современная астрофизика.</p>
+        </div>
+        <div style="flex:1; min-width: 200px;">
+            <h3 style="color:#B9D0FF;">✔ Воспроизводимость</h3>
+            <p>Публикация кода и контейнеров — новый научный этикет. FAIR принципы.</p>
+        </div>
+    </div>
+    <footer>
+        Информационные технологии в астрономии — от ПЗС-матриц до ИИ и суперкомпьютеров.<br>
+        Материал основан на современных данных: LSST, Gaia, Event Horizon Telescope, роботизированные сети «Мастер», облачные платформы AWS/Google, принципы виртуальной обсерватории.
+    </footer>
+</div>
+</body>
+</html>
